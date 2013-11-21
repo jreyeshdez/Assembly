@@ -23,7 +23,7 @@ START:
 ;Building the ramp up
 RAMP:	
 	MVI C,11H		;calling the internal routine 
-	MVI E,01110111B	;in order to show through the Primer-85´s led-display
+	MVI E,01110111B		;in order to show through the Primer-85ï¿½s led-display
 	MVI D,5			;the desired letters by the desired led-display.
 	CALL 1000H
 	MVI E,11100101B
@@ -42,10 +42,10 @@ RAMP:
 	MVI D,0
 	CALL 1000H
 	MVI C,00H
-L1:					;creation of a loop that creates 
+L1:				;creation of a loop that creates 
 	MOV A,C			;a sawtooth wave as input signal.
 	OUT PC			;when the maximum amplitude is reached, the SID signal will be active 
-	RIM				;giving a logic level "1" when the checking is equal.
+	RIM			;giving a logic level "1" when the checking is equal.
 	ANI 80H			;will filter.
 	JNZ STORING		;calling a routine that stores the last value that has been read.
 	INR C			;in case of the the comparison fails, will increment the initial value,
@@ -58,7 +58,7 @@ STORING:
 	MVI A,00H		;will put the C port to zero in order to the sawtooth wave goes down into zero.
 	OUT PC			;will load into the circular buffer, whose direction comes pointing by the H-L register
 	MOV M,C			;the datum that has been read in the comparasion.
-	CALL SAMPLING	;will wait a sampling time in order to store the next datum.
+	CALL SAMPLING		;will wait a sampling time in order to store the next datum.
 	INR L			;will increment the circular buffer to avoid deleting the last datum.
 	MOV A,L			;will compare if the circular buffer got to the end.
 	CPI FFH			;will check if the switch bank has been modified
@@ -80,11 +80,11 @@ LIZ:
 	MOV A,M			;then will load the value into memory, whose direction is pointed by H-L register.
 	INR L			;next, will increment the L register in order to get the next datum.
 	OUT PC			;will show the first datum that has been read.
-	CALL SAMPLING	;will wait a sampling time in order to get and show the next datum.
+	CALL SAMPLING		;will wait a sampling time in order to get and show the next datum.
 	MOV A,L			
 	CPI FFH			;will check if the circular buffer has reached the end.
 	MVI C,11H		;will call the intern routine that show through the led-displays, 
-	MVI E,11010110B	;the desired letters by the  desired led-display.
+	MVI E,11010110B		;the desired letters by the  desired led-display.
 	MVI D,5			
 	CALL 1000H		
 	MVI E,10010111B
